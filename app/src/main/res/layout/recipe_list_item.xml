@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp">
+
+    <ImageView
+        android:id="@+id/image_item"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@mipmap/ic_launcher"/>
+    <TextView
+        android:id="@+id/recipe_name_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/image_item"
+        android:layout_alignRight="@+id/image_item"
+        android:layout_alignBottom="@+id/image_item"
+        android:gravity="bottom|center_horizontal"
+        android:layout_margin="1dp"
+        android:background="#99000000"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        />
+
+</RelativeLayout>

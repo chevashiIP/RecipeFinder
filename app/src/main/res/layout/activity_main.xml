@@ -19,13 +19,14 @@
         android:textSize="22sp" />
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="10dp">
         
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0"/>
+            android:alpha="1"/>
         
         <TextView
             android:id="@+id/errorTV"

@@ -6,26 +6,29 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.recipefinder.utils.NetworkUtils;
-
-import java.io.IOException;
-import java.net.URL;
+import com.recipefinder.utils.RecipeAdapter;
+import com.recipefinder.utils.RecipeAdapter.RecipeAdapterOnClickHandler;
+import com.recipefinder.utils.spoonacularJsonUtils;
 
 import okhttp3.Request;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecipeAdapterOnClickHandler{
     private SearchView mSearchQuery;
     private RecyclerView mRecyclerView;
     private TextView mErrorTV;
     private ProgressBar mProgressBar;
     private static final String TAG = NetworkUtils.class.getSimpleName();
+    private RecipeAdapter mRecipeAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,18 @@ public class MainActivity extends AppCompatActivity {
         mErrorTV = findViewById(R.id.errorTV);
         mProgressBar = findViewById(R.id.progress_bar);
 
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        mRecyclerView.setHasFixedSize(true);
+
+        mRecipeAdapter = new RecipeAdapter(this);
+
+        mRecyclerView.setAdapter(mRecipeAdapter);
+
+        /*InitializerandomRecipe(MainActivity.this);*/
         mSearchQuery.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -44,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     makeSpoonacularSearchQuery(MainActivity.this, query);
                 }
                 else{
-                    ShowError(MainActivity.this,"Query length must be longer than 2");
+                    ShowError(MainActivity.this,"Query length must be longer than 2 characters");
                 }
 
                 mSearchQuery.clearFocus();
@@ -76,10 +91,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String githubSearchResults) {
-            mProgressBar.setVisibility(View.INVISIBLE);
             if (githubSearchResults != null && !githubSearchResults.equals("")) {
                 showResult();
-                Log.d(TAG, githubSearchResults);
+                spoonacularJsonUtils.SearchData[] data = spoonacularJsonUtils.getRecipe(githubSearchResults);
+                mRecipeAdapter.setRecipeData(data);
+                mProgressBar.setVisibility(View.INVISIBLE);
             } else {
                 showError();
             }
@@ -87,8 +103,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void makeSpoonacularSearchQuery(Context context ,String query) {
-        String SpoonacularQuery = query;
-        Request SpoonacularRequest = NetworkUtils.buildUrl(context, query);
+        Request SpoonacularRequest = NetworkUtils.buildSearchUrl(context, query);
+        new SpoonacularQueryTask().execute(SpoonacularRequest);
+    }
+
+    private void InitializerandomRecipe(Context context) {
+        Request SpoonacularRequest = NetworkUtils.buildRandomUrl(context);
         new SpoonacularQueryTask().execute(SpoonacularRequest);
     }
 
@@ -115,5 +135,12 @@ public class MainActivity extends AppCompatActivity {
                 });
         AlertDialog alert11 = builder1.create();
         alert11.show();
+    }
+
+    @Override
+    public void onClick(String weatherForDay) {
+        Context context = this;
+        Toast.makeText(context, weatherForDay, Toast.LENGTH_SHORT)
+                .show();
     }
 }

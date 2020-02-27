@@ -19,27 +19,53 @@ import okhttp3.Response;
 public final class NetworkUtils {
 
     private static final String SpoonacularURL = "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com";
+    private static final String host = "x-rapidapi-host";
+    private static final String rapidkey ="x-rapidapi-key";
 
     private static final String recipystr = "recipes";
+    private static final String randomstr = "random";
     private static final String searchstr = "search";
     private static final String querystr = "query";
+    private static final String numberstr = "number";
 
-    public static Request buildUrl(Context context, String searchquerry){
+    public static Request buildSearchUrl(Context context, String searchquerry){
         String api_key = context.getString(R.string.API_KEY);
 
         HttpUrl httpUrl = new HttpUrl.Builder()
                 .scheme("https")
-                .host("spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
-                .addPathSegment("recipes")
-                .addPathSegment("search")
-                .addQueryParameter("query", searchquerry)
+                .host(SpoonacularURL)
+                .addPathSegment(recipystr)
+                .addPathSegment(searchstr)
+                .addQueryParameter(querystr, searchquerry)
                 .build();
 
         Request request = new Request.Builder()
                 .url(httpUrl)
                 .get()
-                .addHeader("x-rapidapi-host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
-                .addHeader("x-rapidapi-key", api_key)
+                .addHeader(host, SpoonacularURL)
+                .addHeader(rapidkey, api_key)
+                .build();
+
+
+        return request;
+    }
+
+    public static Request buildRandomUrl(Context context){
+        String api_key = context.getString(R.string.API_KEY);
+
+        HttpUrl httpUrl = new HttpUrl.Builder()
+                .scheme("https")
+                .host(SpoonacularURL)
+                .addPathSegment(recipystr)
+                .addPathSegment(randomstr)
+                .addQueryParameter(numberstr, "10")
+                .build();
+
+        Request request = new Request.Builder()
+                .url(httpUrl)
+                .get()
+                .addHeader(host, SpoonacularURL)
+                .addHeader(rapidkey, api_key)
                 .build();
 
 
