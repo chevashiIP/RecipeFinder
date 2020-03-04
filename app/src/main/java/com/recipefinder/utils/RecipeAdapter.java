@@ -22,14 +22,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
     private spoonacularJsonUtils.SearchData[] searchData;
 
     public interface RecipeAdapterOnClickHandler {
-        void onClick(String weatherForDay);
+        void onClick(int recipeid, String title);
     }
 
     public RecipeAdapter(RecipeAdapterOnClickHandler clickHandler) {
         mClickHandler = clickHandler;
     }
-
-
 
     public class RecipeAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public final TextView tvRecipeName;
@@ -46,8 +44,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-            String weatherForDay = searchData[adapterPosition].getTitle();
-            mClickHandler.onClick(weatherForDay);
+            int RecipeId = searchData[adapterPosition].getID();
+            String title = searchData[adapterPosition].getTitle();
+            mClickHandler.onClick(RecipeId, title);
         }
     }
 
@@ -64,11 +63,20 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
 
     @Override
     public void onBindViewHolder(RecipeAdapterViewHolder forecastAdapterViewHolder, int position) {
-        String recipeTittlestr = searchData[position].getTitle();
-        String imageURL = searchData[position].getImageURL();
+        String recipeTittlestr = null;
+        if(searchData[position].getTitle() == null){
+            recipeTittlestr = "Recipe name is not found.";
+        } else{
+            recipeTittlestr = searchData[position].getTitle();
+        }
         forecastAdapterViewHolder.tvRecipeName.setText(recipeTittlestr);
-        if (imageURL != null) {
+
+
+        String imageURL = searchData[position].getImageURL();
+        if (imageURL != null && !imageURL.contains("https://spoonacular.com/recipeImages/")) {
             Picasso.get().load("https://spoonacular.com/recipeImages/"+ imageURL).fit().centerCrop().into(forecastAdapterViewHolder.ivRecipeImg);
+        } else if(imageURL.contains("https://spoonacular.com/recipeImages/") && imageURL != null){
+            Picasso.get().load(imageURL).fit().centerCrop().into(forecastAdapterViewHolder.ivRecipeImg);
         }
     }
 
@@ -82,7 +90,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
 
     public void setRecipeData(SearchData[] recipeData) {
         searchData = recipeData;
-        Log.d(TAG, searchData[1].getTitle());
         notifyDataSetChanged();
     }
 }
