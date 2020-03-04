@@ -27,6 +27,8 @@ public final class NetworkUtils {
     private static final String searchstr = "search";
     private static final String querystr = "query";
     private static final String numberstr = "number";
+    private static final String informstr = "information";
+    private static final String inclNutrition = "includeNutrition";
 
     public static Request buildSearchUrl(Context context, String searchquerry){
         String api_key = context.getString(R.string.API_KEY);
@@ -37,6 +39,7 @@ public final class NetworkUtils {
                 .addPathSegment(recipystr)
                 .addPathSegment(searchstr)
                 .addQueryParameter(querystr, searchquerry)
+                .addQueryParameter(numberstr, "99")
                 .build();
 
         Request request = new Request.Builder()
@@ -59,6 +62,29 @@ public final class NetworkUtils {
                 .addPathSegment(recipystr)
                 .addPathSegment(randomstr)
                 .addQueryParameter(numberstr, "10")
+                .build();
+
+        Request request = new Request.Builder()
+                .url(httpUrl)
+                .get()
+                .addHeader(host, SpoonacularURL)
+                .addHeader(rapidkey, api_key)
+                .build();
+
+
+        return request;
+    }
+
+    public static Request buildRecipeUrl(Context context, String recipeid){
+        String api_key = context.getString(R.string.API_KEY);
+
+        HttpUrl httpUrl = new HttpUrl.Builder()
+                .scheme("https")
+                .host(SpoonacularURL)
+                .addPathSegment(recipystr)
+                .addPathSegment(recipeid)
+                .addPathSegment(informstr)
+                .addQueryParameter(inclNutrition, "true")
                 .build();
 
         Request request = new Request.Builder()

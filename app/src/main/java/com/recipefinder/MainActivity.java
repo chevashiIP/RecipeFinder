@@ -2,7 +2,9 @@ package com.recipefinder;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.recipefinder.utils.NetworkUtils;
 import com.recipefinder.utils.RecipeAdapter;
@@ -23,16 +26,23 @@ import com.recipefinder.utils.spoonacularJsonUtils;
 import okhttp3.Request;
 
 public class MainActivity extends AppCompatActivity implements RecipeAdapterOnClickHandler{
+    private static final String TAG = NetworkUtils.class.getSimpleName();
     private SearchView mSearchQuery;
     private RecyclerView mRecyclerView;
     private TextView mErrorTV;
     private ProgressBar mProgressBar;
-    private static final String TAG = NetworkUtils.class.getSimpleName();
     private RecipeAdapter mRecipeAdapter;
+
+    private Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mToolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(mToolbar);
 
         mSearchQuery = findViewById(R.id.et_search_box);
         mRecyclerView = findViewById(R.id.recyclerview);
@@ -51,11 +61,11 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapterOnCl
         mRecyclerView.setAdapter(mRecipeAdapter);
 
         /*InitializerandomRecipe(MainActivity.this);*/
+
         mSearchQuery.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (query.length() > 2){
-                    // Getting query
                     makeSpoonacularSearchQuery(MainActivity.this, query);
                 }
                 else{
@@ -79,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapterOnCl
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressBar.setVisibility(View.VISIBLE);
+            mRecyclerView.setAlpha(0);
         }
 
         @Override
@@ -91,12 +102,43 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapterOnCl
 
         @Override
         protected void onPostExecute(String githubSearchResults) {
-            if (githubSearchResults != null && !githubSearchResults.equals("")) {
-                showResult();
-                spoonacularJsonUtils.SearchData[] data = spoonacularJsonUtils.getRecipe(githubSearchResults);
-                mRecipeAdapter.setRecipeData(data);
+            spoonacularJsonUtils.SearchData[] data = spoonacularJsonUtils.getRecipe(githubSearchResults);
+            if (githubSearchResults != null && !githubSearchResults.equals("") && data.length != 0) {
+                    mRecipeAdapter.setRecipeData(data);
+                    showResult();
                 mProgressBar.setVisibility(View.INVISIBLE);
             } else {
+                mProgressBar.setVisibility(View.INVISIBLE);
+                showError();
+            }
+        }
+    }
+
+    public class SpoonacularRandomTask extends AsyncTask<Request, Void, String>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressBar.setVisibility(View.VISIBLE);
+            mRecyclerView.setAlpha(0);
+        }
+
+        @Override
+        protected String doInBackground(Request... params) {
+            Request searchUrl = params[0];
+            String githubSearchResults = null;
+            githubSearchResults = NetworkUtils.getResponse(searchUrl);
+            return githubSearchResults;
+        }
+
+        @Override
+        protected void onPostExecute(String githubSearchResults) {
+            spoonacularJsonUtils.SearchData[] data = spoonacularJsonUtils.getRandomRecipe(githubSearchResults);
+            if (githubSearchResults != null && !githubSearchResults.equals("") && data.length != 0) {
+                mRecipeAdapter.setRecipeData(data);
+                showResult();
+                mProgressBar.setVisibility(View.INVISIBLE);
+            } else {
+                mProgressBar.setVisibility(View.INVISIBLE);
                 showError();
             }
         }
@@ -109,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapterOnCl
 
     private void InitializerandomRecipe(Context context) {
         Request SpoonacularRequest = NetworkUtils.buildRandomUrl(context);
-        new SpoonacularQueryTask().execute(SpoonacularRequest);
+        new SpoonacularRandomTask().execute(SpoonacularRequest);
     }
 
     private void showResult(){
@@ -138,9 +180,10 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapterOnCl
     }
 
     @Override
-    public void onClick(String weatherForDay) {
-        Context context = this;
-        Toast.makeText(context, weatherForDay, Toast.LENGTH_SHORT)
-                .show();
+    public void onClick(int recipeid, String title) {
+        Intent i = new Intent(MainActivity.this, DetailRecipe.class);
+        i.putExtra("recipeID", Integer.toString(recipeid));
+        i.putExtra("title", title);
+        startActivity(i);
     }
 }
