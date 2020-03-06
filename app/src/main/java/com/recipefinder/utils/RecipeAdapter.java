@@ -2,7 +2,6 @@ package com.recipefinder.utils;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import com.recipefinder.R;
 import com.recipefinder.utils.spoonacularJsonUtils.SearchData;
 import com.squareup.picasso.Picasso;
 
-import static android.content.ContentValues.TAG;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdapterViewHolder> {
 

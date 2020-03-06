@@ -13,10 +13,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 
-import com.recipefinder.utils.Ingridient;
 import com.recipefinder.utils.NetworkUtils;
 import com.recipefinder.utils.spoonacularJsonUtils;
 
@@ -88,8 +86,7 @@ public class DetailRecipe extends AppCompatActivity {
 
                 overviewbundle.putString("title", data.getTitle());
                 overviewbundle.putString("imageurl", data.getImageURL());
-                overviewbundle.putInt("preptime", data.getPrepTime());
-                overviewbundle.putInt("cooktime", data.getCookingTime());
+                overviewbundle.putInt("readytime", data.getReadyTime());
                 overviewbundle.putString("sourceurl", data.getSourceURL());
 
                 ingridientsbundle.putStringArray("names", data.getIngridientName());

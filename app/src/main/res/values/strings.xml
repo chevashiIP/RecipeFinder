@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Recipe Finder</string>
     <string name="search">Search</string>
+    <string name="signout">Sign Out</string>
     <string name="error_dsp">Error while searching for recipe, try again!</string>
     <string name="title_activity_detail_recipe">DetailRecipe</string>
 </resources>

@@ -38,7 +38,7 @@ public class overviewfragment extends Fragment {
 
         String title = this.getArguments().getString("title");
         String imageurl = this.getArguments().getString("imageurl");
-        int preptime = this.getArguments().getInt("preptime") + this.getArguments().getInt("cooktime");
+        int preptime = this.getArguments().getInt("readytime");
         String totaltime = "Ready in: " + Integer.toString(preptime) + " minutes";
         String source = "<a href=\'" +  this.getArguments().getString("sourceurl")  + "\'>Source</a>";
 

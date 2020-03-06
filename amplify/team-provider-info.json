@@ -1,0 +1,20 @@
+{
+    "android": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-recipefinder-android-192513-authRole",
+            "UnauthRoleArn": "arn:aws:iam::588182027176:role/amplify-recipefinder-android-192513-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::588182027176:role/amplify-recipefinder-android-192513-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-recipefinder-android-192513-deployment",
+            "UnauthRoleName": "amplify-recipefinder-android-192513-unauthRole",
+            "StackName": "amplify-recipefinder-android-192513",
+            "StackId": "arn:aws:cloudformation:us-east-1:588182027176:stack/amplify-recipefinder-android-192513/f20a04f0-5f40-11ea-b878-0a8267cebc39",
+            "AmplifyAppId": "d105yzq7lzhqau"
+        },
+        "categories": {
+            "auth": {
+                "recipefinder7883d786": {}
+            }
+        }
+    }
+}

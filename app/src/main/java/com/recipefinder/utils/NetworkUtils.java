@@ -1,14 +1,10 @@
 package com.recipefinder.utils;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.net.Uri;
 
 import com.recipefinder.R;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;

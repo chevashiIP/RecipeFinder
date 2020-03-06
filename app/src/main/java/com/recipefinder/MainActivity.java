@@ -4,20 +4,22 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobile.client.SignInUIOptions;
 import com.recipefinder.utils.NetworkUtils;
 import com.recipefinder.utils.RecipeAdapter;
 import com.recipefinder.utils.RecipeAdapter.RecipeAdapterOnClickHandler;
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapterOnCl
 
         mRecyclerView.setAdapter(mRecipeAdapter);
 
-        /*InitializerandomRecipe(MainActivity.this);*/
+        InitializerandomRecipe(MainActivity.this);
 
         mSearchQuery.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -186,4 +188,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapterOnCl
         i.putExtra("title", title);
         startActivity(i);
     }
+
+
+
 }

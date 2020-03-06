@@ -9,15 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.recipefinder.utils.Ingridient;
 import com.recipefinder.utils.IngridientAdapter;
-
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ingridientsfragment extends Fragment {
     private RecyclerView mIngridientList;
@@ -38,8 +33,6 @@ public class ingridientsfragment extends Fragment {
         String[] imgurl = this.getArguments().getStringArray("img");
         String[] amount = this.getArguments().getStringArray("amount");
         String[] unit = this.getArguments().getStringArray("unit");
-
-
 
         ArrayList<Ingridient> list = new ArrayList<>();
 

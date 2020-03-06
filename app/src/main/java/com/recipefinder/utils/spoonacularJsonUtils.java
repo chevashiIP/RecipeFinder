@@ -62,8 +62,7 @@ public class spoonacularJsonUtils {
         int id = 0;
         String title = null;
         String imageURL = null;
-        int preptime = 0;
-        int cookTime = 0;
+        int readytime = 0;
         String sourceURL = null;
         String[] instructions = null;
         String[] ingridients = null;
@@ -75,8 +74,7 @@ public class spoonacularJsonUtils {
             id = jobject.getInt("id");
             title = jobject.getString("title");
             imageURL = jobject.getString("image");
-            preptime = jobject.getInt("preparationMinutes");
-            cookTime = jobject.getInt("cookingMinutes");
+            readytime = jobject.getInt("readyInMinutes");
             sourceURL = jobject.getString("sourceUrl");
 
             jsonArray = jobject.getJSONArray("analyzedInstructions");
@@ -105,7 +103,7 @@ public class spoonacularJsonUtils {
         }catch (JSONException e){
             e.printStackTrace();
         }
-        RecipeData newData = new RecipeData(id, title,imageURL,preptime,cookTime,
+        RecipeData newData = new RecipeData(id, title,imageURL,readytime,
                 sourceURL, ingridients, inggridientsimg,
                 ingunit, ingammount, instructions);
         return newData;
@@ -139,8 +137,7 @@ public class spoonacularJsonUtils {
         int id;
         String title;
         String imageURL;
-        int prepTime;
-        int cookingTime;
+        int readyTime;
         String sourceURL;
         String[] IngridientName;
         String[] IngridientImg;
@@ -148,14 +145,13 @@ public class spoonacularJsonUtils {
         String[] ingridientammount;
         String[] Instructions;
 
-        public RecipeData(int id, String title, String imageURL, int prepTime,int cookingTime,
+        public RecipeData(int id, String title, String imageURL, int readyTime,
                           String sourceURL, String[] IngridientName, String[] IngridientImg,
                           String[] ingridientunit,  String[] ingridientammount, String[] instructions){
             this.id = id;
             this.title = title;
             this.imageURL = imageURL;
-            this.prepTime = prepTime;
-            this.cookingTime = cookingTime;
+            this.readyTime = readyTime;
             this.sourceURL = sourceURL;
             this.IngridientName = IngridientName;
             this.IngridientImg = IngridientImg;
@@ -172,9 +168,7 @@ public class spoonacularJsonUtils {
             return imageURL;
         }
 
-        public int getPrepTime(){return prepTime;}
-
-        public int getCookingTime(){return cookingTime;}
+        public int getReadyTime(){return readyTime;}
 
         public String getSourceURL(){return sourceURL;}
 
