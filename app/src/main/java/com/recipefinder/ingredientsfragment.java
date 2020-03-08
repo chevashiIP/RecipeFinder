@@ -10,13 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.recipefinder.utils.Ingridient;
-import com.recipefinder.utils.IngridientAdapter;
+import com.recipefinder.utils.Ingredient;
+import com.recipefinder.utils.IngredientAdapter;
 import java.util.ArrayList;
 
 public class ingridientsfragment extends Fragment {
     private RecyclerView mIngridientList;
-    private IngridientAdapter adapter;
+    private IngredientAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,17 +34,17 @@ public class ingridientsfragment extends Fragment {
         String[] amount = this.getArguments().getStringArray("amount");
         String[] unit = this.getArguments().getStringArray("unit");
 
-        ArrayList<Ingridient> list = new ArrayList<>();
+        ArrayList<Ingredient> list = new ArrayList<>();
 
         for(int i = 0; i < name.length; i++){
-            list.add(new Ingridient(name[i], imgurl[i], amount[i], unit[i]));
+            list.add(new Ingredient(name[i], imgurl[i], amount[i], unit[i]));
         }
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mIngridientList.setLayoutManager(layoutManager);
         mIngridientList.setHasFixedSize(true);
-        adapter = new IngridientAdapter();
+        adapter = new IngredientAdapter();
         adapter.setIngridientData(list);
 
         mIngridientList.setAdapter(adapter);
