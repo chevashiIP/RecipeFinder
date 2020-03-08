@@ -11,7 +11,7 @@
         android:padding="5dp" />
 
     <TextView
-        android:id="@+id/ingridient_ammount"
+        android:id="@+id/ingredient_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"

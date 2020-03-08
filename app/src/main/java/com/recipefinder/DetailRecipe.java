@@ -54,10 +54,10 @@ public class DetailRecipe extends AppCompatActivity {
         new SpoonacularInfoTask().execute(SpoonacularRequest);
     }
 
-    private void setupViewPager(ViewPager pager, Fragment overview, Fragment ingrdients, Fragment steps){
+    private void setupViewPager(ViewPager pager, Fragment overview, Fragment ingredients, Fragment steps){
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(overview, "Overview");
-        adapter.addFragment(ingrdients, "Ingredients");
+        adapter.addFragment(ingredients, "Ingredients");
         adapter.addFragment(steps, "Steps");
         pager.setAdapter(adapter);
     }
@@ -81,7 +81,7 @@ public class DetailRecipe extends AppCompatActivity {
             spoonacularJsonUtils.RecipeData data = spoonacularJsonUtils.getRecipeInfo(githubSearchResults);
             if (githubSearchResults != null && !githubSearchResults.equals("") && data != null) {
                 Bundle overviewbundle = new Bundle();
-                Bundle ingridientsbundle = new Bundle();
+                Bundle ingredientsbundle = new Bundle();
                 Bundle stepsbundle = new Bundle();
 
                 overviewbundle.putString("title", data.getTitle());
@@ -89,22 +89,22 @@ public class DetailRecipe extends AppCompatActivity {
                 overviewbundle.putInt("readytime", data.getReadyTime());
                 overviewbundle.putString("sourceurl", data.getSourceURL());
 
-                ingridientsbundle.putStringArray("names", data.getIngridientName());
-                ingridientsbundle.putStringArray("img", data.getIngridientImg());
-                ingridientsbundle.putStringArray("amount", data.getIngridientammount());
-                ingridientsbundle.putStringArray("unit", data.getIngridientUnit());
+                ingredientsbundle.putStringArray("names", data.getIngredientName());
+                ingredientsbundle.putStringArray("img", data.getIngredientImg());
+                ingredientsbundle.putStringArray("amount", data.getIngredientamount());
+                ingredientsbundle.putStringArray("unit", data.getIngredientUnit());
 
                 stepsbundle.putStringArray("instructions", data.getInstructions());
 
                 Fragment overview = new overviewfragment();
-                Fragment ingridients = new ingridientsfragment();
+                Fragment ingredients = new ingredientsfragment();
                 Fragment instructions = new stepsfragment();
 
                 overview.setArguments(overviewbundle);
-                ingridients.setArguments(ingridientsbundle);
+                ingredients.setArguments(ingredientsbundle);
                 instructions.setArguments(stepsbundle);
 
-                setupViewPager(mViewpager, overview, ingridients, instructions);
+                setupViewPager(mViewpager, overview, ingredients, instructions);
                 mTab.setupWithViewPager(mViewpager);
                 mTab.setVisibility(View.VISIBLE);
                 mProgress.setVisibility(View.INVISIBLE);

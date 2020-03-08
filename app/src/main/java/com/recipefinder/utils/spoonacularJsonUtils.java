@@ -139,24 +139,24 @@ public class spoonacularJsonUtils {
         String imageURL;
         int readyTime;
         String sourceURL;
-        String[] IngridientName;
-        String[] IngridientImg;
-        String[] ingridientunit;
-        String[] ingridientammount;
+        String[] IngredientName;
+        String[] IngredientImg;
+        String[] ingredientunit;
+        String[] ingredientammount;
         String[] Instructions;
 
         public RecipeData(int id, String title, String imageURL, int readyTime,
-                          String sourceURL, String[] IngridientName, String[] IngridientImg,
-                          String[] ingridientunit,  String[] ingridientammount, String[] instructions){
+                          String sourceURL, String[] IngredientName, String[] IngredientImg,
+                          String[] ingredientunit, String[] ingredientammount, String[] instructions){
             this.id = id;
             this.title = title;
             this.imageURL = imageURL;
             this.readyTime = readyTime;
             this.sourceURL = sourceURL;
-            this.IngridientName = IngridientName;
-            this.IngridientImg = IngridientImg;
-            this.ingridientunit = ingridientunit;
-            this.ingridientammount = ingridientammount;
+            this.IngredientName = IngredientName;
+            this.IngredientImg = IngredientImg;
+            this.ingredientunit = ingredientunit;
+            this.ingredientammount = ingredientammount;
             this.Instructions = instructions;
         }
 
@@ -172,13 +172,13 @@ public class spoonacularJsonUtils {
 
         public String getSourceURL(){return sourceURL;}
 
-        public String[] getIngridientName(){return IngridientName;}
+        public String[] getIngredientName(){return IngredientName;}
 
-        public String[] getIngridientImg(){return IngridientImg;}
+        public String[] getIngredientImg(){return IngredientImg;}
 
-        public String[] getIngridientUnit(){return ingridientunit;}
+        public String[] getIngredientUnit(){return ingredientunit;}
 
-        public String[] getIngridientammount(){return ingridientammount;}
+        public String[] getIngredientamount(){return ingredientammount;}
 
         public String[] getInstructions(){return Instructions;}
     }

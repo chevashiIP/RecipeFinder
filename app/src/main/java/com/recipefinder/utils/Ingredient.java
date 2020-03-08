@@ -1,12 +1,12 @@
 package com.recipefinder.utils;
 
-public class Ingridient {
+public class Ingredient {
     private String mTitle;
     private String mImageurl;
     private String mAmmount;
     private String mUnit;
 
-    public Ingridient(String title, String imageurl, String ammount, String unit){
+    public Ingredient(String title, String imageurl, String ammount, String unit){
         this.mTitle = title;
         this.mImageurl = imageurl;
         this.mAmmount = ammount;
