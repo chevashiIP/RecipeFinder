@@ -14,8 +14,8 @@ import com.recipefinder.utils.Ingredient;
 import com.recipefinder.utils.IngredientAdapter;
 import java.util.ArrayList;
 
-public class ingridientsfragment extends Fragment {
-    private RecyclerView mIngridientList;
+public class ingredientsfragment extends Fragment {
+    private RecyclerView mIngredientList;
     private IngredientAdapter adapter;
 
     @Override
@@ -26,8 +26,8 @@ public class ingridientsfragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ingridients_fragment, container, false);
-        mIngridientList = view.findViewById(R.id.ingridient_list);
+        View view = inflater.inflate(R.layout.ingredients_fragment, container, false);
+        mIngredientList = view.findViewById(R.id.ingredient_list);
 
         String[] name = this.getArguments().getStringArray("names");
         String[] imgurl = this.getArguments().getStringArray("img");
@@ -42,12 +42,12 @@ public class ingridientsfragment extends Fragment {
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        mIngridientList.setLayoutManager(layoutManager);
-        mIngridientList.setHasFixedSize(true);
+        mIngredientList.setLayoutManager(layoutManager);
+        mIngredientList.setHasFixedSize(true);
         adapter = new IngredientAdapter();
-        adapter.setIngridientData(list);
+        adapter.setIngredientData(list);
 
-        mIngridientList.setAdapter(adapter);
+        mIngredientList.setAdapter(adapter);
 
         return view;
     }
