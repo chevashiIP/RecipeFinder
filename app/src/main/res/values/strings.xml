@@ -3,5 +3,7 @@
     <string name="search">Search</string>
     <string name="signout">Sign Out</string>
     <string name="error_dsp">Error while searching for recipe, try again!</string>
-    <string name="title_activity_detail_recipe">DetailRecipe</string>
+    <string name="title_activity_detail_recipe">Recipe Information</string>
+    <string name="error_nointernet">No Internet connection found.</string>
+    <string name="erorr_tryagain">Try again later!</string>
 </resources>

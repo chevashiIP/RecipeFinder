@@ -2,6 +2,8 @@ package com.recipefinder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.recipefinder.utils.NetworkUtils;
 import com.recipefinder.utils.spoonacularJsonUtils;
@@ -28,6 +31,18 @@ public class DetailRecipe extends AppCompatActivity {
     private TabLayout mTab;
     private ViewPager mViewpager;
     private ProgressBar mProgress;
+    private TextView mError;
+
+    boolean internet_connection(){
+        ConnectivityManager cm =
+                (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        return isConnected;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +60,12 @@ public class DetailRecipe extends AppCompatActivity {
         mTab = findViewById(R.id.tabs);
         mViewpager = findViewById(R.id.viewpager);
         mProgress = findViewById(R.id.recipe_progress);
-
-        loadTheRecipe(DetailRecipe.this, recipeID);
+        mError = findViewById(R.id.errorTV);
+        if(internet_connection()) {
+            loadTheRecipe(DetailRecipe.this, recipeID);
+        } else {
+            mError.setVisibility(View.VISIBLE);
+        }
     }
 
     private void loadTheRecipe(Context context, String idoftherecipe){
@@ -109,7 +128,8 @@ public class DetailRecipe extends AppCompatActivity {
                 mTab.setVisibility(View.VISIBLE);
                 mProgress.setVisibility(View.INVISIBLE);
             } else {
-
+                mViewpager.setVisibility(View.INVISIBLE);
+                mError.setVisibility(View.VISIBLE);
             }
         }
     }
