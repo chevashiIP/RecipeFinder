@@ -37,4 +37,13 @@
         android:layout_height="300dp"
         android:layout_gravity="center"/>
 
+    <TextView
+        android:id="@+id/errorTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error_dsp"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
+
 </android.support.design.widget.CoordinatorLayout>
